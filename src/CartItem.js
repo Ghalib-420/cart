@@ -7,7 +7,7 @@ constructor (){
     this.state={
         price:999,
         title:'Phone',
-        qty:'1',
+        qty:'5',
         img:''
 
 
