@@ -7,7 +7,7 @@ constructor (){
     this.state={
         price:999,
         title:'Phone',
-        qty:'5',
+        qty:1,
         img:''
 
 
@@ -16,7 +16,27 @@ constructor (){
     
 
    increaseQuantity = () =>{
+
         console.log('this',this);
+        this.setState({
+            qty : this.state.qty + 1
+        });
+
+    }
+    decreaseQuantity = () =>{
+
+        console.log('this',this);
+        this.setState((prevState) =>{
+            if(prevState.qty<1){
+                return{
+                    qty:0
+                }
+            }
+       return{
+        qty:prevState.qty -1
+       }
+        });
+
     }
     
 
@@ -44,7 +64,13 @@ constructor (){
     onClick={this.increaseQuantity}
     
     />
-    <img style={style.buttons}  alt="decrease" className="action-icon" src="https://cdn-icons-png.flaticon.com/512/992/992683.png"/>
+    <img 
+    style={style.buttons}  
+    alt="decrease" 
+    className="action-icon" 
+    src="https://cdn-icons-png.flaticon.com/512/992/992683.png"
+    onClick={this.decreaseQuantity}
+    />
     <img style={style.buttons}  alt="delete" className="action-icon" src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"/>
 
 </div>
