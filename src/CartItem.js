@@ -2,22 +2,12 @@ import React from "react";
 
 class CartItem extends React.Component{
 
-constructor (){
-    super();
-    this.state={
-        price:999,
-        title:'Phone',
-        qty:0,
-        img:''
 
-
-    }
-}
     
 
    increaseQuantity = () =>{
 
-        console.log('this',this);
+        console.log('this.state',this.state);
         this.setState({
             qty : this.state.qty + 1
         });
@@ -25,7 +15,7 @@ constructor (){
     }
     decreaseQuantity = () =>{
 
-        console.log('this',this);
+        console.log('this.state',this.state);
         this.setState((prevState) =>{
             if(prevState.qty<1){
                 return;
@@ -40,7 +30,8 @@ constructor (){
 
 
     render(){
-        const {price,title,qty}=this.state;
+        console.log('this.props',this.props);
+        const {price,title,qty}=this.props.product;
         return(
             <div className="cart-item"> 
                 <div className="left-block" >
@@ -48,9 +39,9 @@ constructor (){
 
                 </div>
                 <div className="right-block">
-<div style={ {fontSize: 25} }>{title}</div>
-<div style={{color:'#777'}}>{price}</div>
-<div style={{color:'#777'}}>{qty}</div>
+<div style={ {fontSize: 25} }>title:- {title}</div>
+<div style={{color:'#777'}}>price:- {price}</div>
+<div style={{color:'#777'}}>qty:- {qty}</div>
 <div className="cart-item-action">
 
     {/* Buttons */}
