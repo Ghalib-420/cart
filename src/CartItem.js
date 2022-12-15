@@ -7,7 +7,7 @@ constructor (){
     this.state={
         price:999,
         title:'Phone',
-        qty:1,
+        qty:0,
         img:''
 
 
@@ -28,9 +28,7 @@ constructor (){
         console.log('this',this);
         this.setState((prevState) =>{
             if(prevState.qty<1){
-                return{
-                    qty:0
-                }
+                return;
             }
        return{
         qty:prevState.qty -1
