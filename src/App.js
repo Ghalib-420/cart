@@ -44,7 +44,7 @@ componentDidMount(){
 handleIncreaseQty =(product) =>{
 const {products}=this.state;
 const index =products.indexOf(product); 
-products[index].qty +=1;
+products[index].Qty +=1;
 
 this.setState({
 products:products
@@ -56,8 +56,8 @@ products:products
  handleDecreaseQty =(product) =>{
     const {products}=this.state;
     const index =products.indexOf(product); 
-    if(products[index].qty > 0){
-    products[index].qty -= 1;
+    if(products[index].Qty > 0){
+    products[index].Qty -= 1;
     }
  this.setState({
      products:products
@@ -67,7 +67,7 @@ products:products
 
 handleDelete=(id) =>{
 const {products}=this.state;
-const item =products.filter((item)=>item.id != id); //{[array after deletion]}
+const item =products.filter((item)=>item.id !== id); //{[array after deletion]}
 this.setState({
 products:item
 });
@@ -80,7 +80,7 @@ let count=0;
 
 
 products.forEach((product) =>{
-  count += product.qty;
+  count += product.Qty;
 
 })
 
@@ -94,8 +94,9 @@ getCartTotalValue =()=>{
 let totalSum=0;
 products.map((product) =>{
   totalSum = totalSum + product.Qty *product.Price;
-})
+  return totalSum;
 
+})
 return totalSum;
 }
 
