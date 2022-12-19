@@ -55,7 +55,7 @@ docRef.update({
   Qty:products[index].Qty +1
 })
 .then(()=>{
-  console.log('Updated Sucessfully');
+  console.log('Updated Successfully');
 })
 .catch((error)=>{
   console.log('Error',error);
@@ -81,7 +81,7 @@ if(products[index].Qty>0){
     Qty:products[index].Qty -1
   })
   .then(()=>{
-    console.log('Updated Sucessfully');
+    console.log('Updated Successfully');
   })
   .catch((error)=>{
     console.log('Error',error);
@@ -93,10 +93,21 @@ if(products[index].Qty>0){
 
 handleDelete=(id) =>{
 const {products}=this.state;
-const item =products.filter((item)=>item.id !== id); //{[array after deletion]}
-this.setState({
-products:item
-});
+// const item =products.filter((item)=>item.id !== id); //{[array after deletion]}
+// this.setState({
+// products:item
+// });
+
+const docRef=this.db.collection('products').doc(id);
+docRef
+.delete()
+.then(()=>{
+  console.log('Deleted Successfully');
+})
+.catch((error)=>{
+  console.log('Error',error);
+
+})
 
 };
 
