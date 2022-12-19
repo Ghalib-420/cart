@@ -16,12 +16,12 @@ class App extends  React.Component {
        products:[],
        loding:true
     }
+    this.db= firebase.firestore();
 }
 
 componentDidMount(){
-  firebase
-  .firestore()
-  .collection('products')
+ 
+  this.db.collection('products')
   .onSnapshot((snapshot)=>{
     const products=  snapshot.docs.map((doc)=>{
       const data=doc.data();
@@ -44,10 +44,22 @@ componentDidMount(){
 handleIncreaseQty =(product) =>{
 const {products}=this.state;
 const index =products.indexOf(product); 
-products[index].Qty +=1;
+// products[index].Qty +=1;
 
-this.setState({
-products:products
+// this.setState({
+// products:products
+// })
+const docRef=this.db.collection('products').doc(products[index].id);
+
+docRef.update({
+  Qty:products[index].Qty +1
+})
+.then(()=>{
+  console.log('Updated Sucessfully');
+})
+.catch((error)=>{
+  console.log('Error',error);
+
 })
 
 };
@@ -56,12 +68,26 @@ products:products
  handleDecreaseQty =(product) =>{
     const {products}=this.state;
     const index =products.indexOf(product); 
-    if(products[index].Qty > 0){
-    products[index].Qty -= 1;
-    }
- this.setState({
-     products:products
- })
+    // if(products[index].Qty > 0){
+    // products[index].Qty -= 1;
+    // }
+//  this.setState({
+//      products:products
+//  })
+const docRef=this.db.collection('products').doc(products[index].id);
+
+if(products[index].Qty>0){
+  docRef.update({
+    Qty:products[index].Qty -1
+  })
+  .then(()=>{
+    console.log('Updated Sucessfully');
+  })
+  .catch((error)=>{
+    console.log('Error',error);
+  
+  })
+}
  
      };
 
@@ -100,6 +126,24 @@ products.map((product) =>{
 return totalSum;
 }
 
+// addProduct =()=>{
+//   this.db.collection('products')
+//   .add({
+//     Title:'Washing Machine',
+//     Price:1299,
+//     Qty:1,
+//     Img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd3qhwQ6QPoYcT-hkuLf8FEib_eTbXT30-pzbOSefELi0uRMlwY6n025LZSCUs9Zoa0vU&usqp=CAU'
+//   })
+//   .then((docRef)=>{
+//     console.log("Product Added",docRef);
+
+//   })
+//   .catch((error)=>{
+//     console.log(error);
+//   })
+
+// }
+
 
 
 
@@ -119,6 +163,7 @@ const {products,loding}=this.state;
       />
     {loding && <h1>Lodding products....</h1>}
       <div style={{padding:10,fontSize:30}}>Total: {this.getCartTotalValue()}</div>
+      {/* <div><button style={{padding:20,FontSize:20}} onClick={this.addProduct}>Add Product</button></div>*/}
     </div>
   );
 
